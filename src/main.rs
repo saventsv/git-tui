@@ -1,6 +1,6 @@
 use crossterm::event::{self, Event, KeyEvent, KeyCode, KeyEventKind};
 use ratatui::{self, DefaultTerminal, Frame, layout::Constraint, text::{Line, Text}, widgets::{Block, Paragraph}, style::{Color, Stylize}};
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 struct App {
     cursor: usize,
@@ -105,18 +105,24 @@ impl App {
             let _add = Command::new("git")
                 .arg("add")
                 .arg("-A")
+								.stdout(Stdio::null())
+								.stderr(Stdio::null())
                 .status();
 
             let _commit = Command::new("git")
                 .arg("commit")
                 .arg("-m")
                 .arg(format!("{}", self.input))
+								.stdout(Stdio::null())
+								.stderr(Stdio::null())
                 .status();
 
             let _push = Command::new("git")
                 .arg("push")
                 .arg("origin")
                 .arg("main")
+								.stdout(Stdio::null())
+								.stderr(Stdio::null())
                 .status();
 
             self.input.clear();
