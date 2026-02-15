@@ -110,12 +110,15 @@ impl App {
             let _commit = Command::new("git")
                 .arg("commit")
                 .arg("-m")
-                .arg("{self.input}")
+                .arg(format!("{}", self.input))
                 .status();
+
             let _push = Command::new("git")
+                .arg("push")
                 .arg("origin")
                 .arg("main")
                 .status();
+
             self.input.clear();
             self.editing = false;
             self.current_screen = CurrentScreen::List
